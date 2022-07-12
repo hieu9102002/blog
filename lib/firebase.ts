@@ -1,7 +1,8 @@
 import {initializeApp, getApp} from "firebase/app";
 import {getAuth, GoogleAuthProvider} from 'firebase/auth';
-import {getFirestore} from 'firebase/firestore';
+import {collection, DocumentSnapshot, getDoc, getDocs, getFirestore, limit, query, where} from 'firebase/firestore';
 import {getStorage} from 'firebase/storage';
+import Post from "../types/Post";
 
 const firebaseConfig = {
     apiKey: "AIzaSyAN_D_sFO_GTeDIZ9a6H6A7RMQvcZpTTpA",
@@ -21,3 +22,21 @@ export const firestore = getFirestore(getApp());
 export const storage = getStorage(getApp());
 
 export const googleAuthProvider = new GoogleAuthProvider();
+
+export const getUserWithUsername = async (username:string) => {
+    const usersRef = collection(firestore,'users');
+    const q = query(usersRef,where("username","==",username),limit(1));
+
+    const snapshot = (await getDocs(q)).docs[0];
+
+    return snapshot;
+}
+
+export const postToJSON = (doc:DocumentSnapshot) => {
+    const data = doc.data();
+    return {
+        ...data,
+        createdAt: data!.createdAt.toMillis(),
+        updatedAt: data!.updatedAt.toMillis()
+    } as Post;
+}

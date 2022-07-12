@@ -1,8 +1,8 @@
 import {createContext} from 'react';
-import { User } from 'firebase/auth';
+import UserBlog from '../types/User'
 
 interface UserContextInterface {
-    user: User|null|undefined;
+    user: UserBlog|null|undefined;
     username: string|null;
 }
 
