@@ -1,9 +1,9 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import Link from 'next/link'
+import { UserContext } from '../lib/context'
 
 const Navbar = () => {
-    const user = null;
-    const username:string|null = null;
+    const {user, username} = useContext(UserContext);
   return (
     <nav className='navbar'>
         <ul>
@@ -17,7 +17,7 @@ const Navbar = () => {
                         <Link href="/admin"><button className='btn-blue'>Write Posts</button></Link>
                     </li>
                     <li>
-                        <Link href={`/${username}`}><img src={"user?.photoURL"}></img></Link>
+                        <Link href={`/${username}`}><img src={user?.photoURL ?? ""}></img></Link>
                     </li>
                 </>
             )}
