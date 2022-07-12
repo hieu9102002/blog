@@ -5,7 +5,7 @@ import UserProfile from '../../components/UserProfile';
 import Post from '../../types/Post';
 import {  getUserWithUsername, postToJSON } from '../../lib/firebase';
 import { collection, getDocs, limit, orderBy, query as firestoreQuery, where } from 'firebase/firestore';
-import { GetServerSideProps, GetServerSidePropsContext } from 'next';
+import { GetServerSideProps } from 'next';
 
 export const getServerSideProps:GetServerSideProps= async ({query}) => { 
   const {username} = query;

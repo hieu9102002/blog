@@ -46,7 +46,6 @@ const Home:FC<{posts:Post[]}> = (props) => {
 
   return (
     <main>
-      <PrimeCounter/>
       <PostFeed posts={posts} admin={false}/>
       {!loading && !postsEnd && <button onClick={getMorePosts}> Load more</button>}
 
