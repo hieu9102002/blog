@@ -11,6 +11,12 @@ export const getServerSideProps:GetServerSideProps= async ({query}) => {
   const {username} = query;
 
   const userDoc = await getUserWithUsername(String(username??""));
+
+  if(!userDoc){
+    return {
+      notFound:true,
+    }
+  }
   let user:UserBlog|null = null;
   let posts:Post[]|null = null;
 

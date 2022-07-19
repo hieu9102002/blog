@@ -1,6 +1,6 @@
 import {initializeApp, getApp} from "firebase/app";
 import {getAuth, GoogleAuthProvider} from 'firebase/auth';
-import {collection, DocumentSnapshot, getDoc, getDocs, getFirestore, limit, query, where} from 'firebase/firestore';
+import {collection, DocumentSnapshot, FieldValue, getDoc, getDocs, getFirestore, limit, query, serverTimestamp as serverTimestam, where} from 'firebase/firestore';
 import {getStorage} from 'firebase/storage';
 import Post from "../types/Post";
 
@@ -22,6 +22,7 @@ export const firestore = getFirestore(getApp());
 export const storage = getStorage(getApp());
 
 export const googleAuthProvider = new GoogleAuthProvider();
+export const serverTimestamp = serverTimestam;
 
 export const getUserWithUsername = async (username:string) => {
     const usersRef = collection(firestore,'users');

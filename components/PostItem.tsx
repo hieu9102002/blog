@@ -3,7 +3,7 @@ import React, { FC } from 'react'
 import Post from '../types/Post'
 import UserBlog from '../types/User'
 
-const PostItem:FC<{post: Post, admin:UserBlog|false}> = ({post, admin}) => {
+const PostItem:FC<{post: Post, admin?:boolean}> = ({post, admin}) => {
 
     const wordCount = post.content?.trim().split(/\s+/g).length ?? 0;
     const minutesToRead = (wordCount/100+1).toFixed(0);
