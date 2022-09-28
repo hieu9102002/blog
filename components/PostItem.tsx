@@ -15,12 +15,21 @@ const PostItem:FC<{post: Post, admin?:boolean}> = ({post, admin}) => {
             </a>
         </Link>
 
-        <Link href={`/${post.username}/${post.slug}`}>
-            <h2>
-                <a>{post.title}</a>
-            </h2>
-        </Link>
+        {admin? 
+             <Link href={`/admin/${post.slug}`}>
+                <h2>
+                    <a>{post.title}</a>
+                </h2>
+            </Link>
 
+            :
+            <Link href={`/${post.username}/${post.slug}`}>
+                <h2>
+                    <a>{post.title}</a>
+                </h2>
+            </Link>
+        }
+       
         <footer>
             <span>
                 {wordCount} words. {minutesToRead} min read

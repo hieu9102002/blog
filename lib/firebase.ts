@@ -1,7 +1,7 @@
 import {initializeApp, getApp} from "firebase/app";
 import {getAuth, GoogleAuthProvider} from 'firebase/auth';
 import {collection, DocumentSnapshot, FieldValue, getDoc, getDocs, getFirestore, limit, query, serverTimestamp as serverTimestam, where} from 'firebase/firestore';
-import {getStorage} from 'firebase/storage';
+import {getStorage, ref} from 'firebase/storage';
 import Post from "../types/Post";
 
 const firebaseConfig = {

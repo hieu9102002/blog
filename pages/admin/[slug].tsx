@@ -10,6 +10,7 @@ import AuthCheck from '../../components/AuthCheck';
 import { auth, firestore } from '../../lib/firebase';
 import Post from '../../types/Post';
 import styles from '../../styles/Admin.module.css'
+import ImageUploader from '../../components/ImageUploader';
 
 const AdminPostEdit = () => {
   return (
@@ -54,7 +55,9 @@ const PostManager = () => {
 }
 
 const PostForm:FC<{postRef:DocumentReference<DocumentData>, defaultValues:Post, preview:boolean}> = ({postRef, defaultValues, preview}) => {
-  const {register, handleSubmit, reset, watch} = useForm ({defaultValues, mode: 'onChange'});
+  const {register, handleSubmit, reset, watch, formState} = useForm ({defaultValues, mode: 'onChange'});
+
+  const {isValid, isDirty} = formState;
 
   const updatePost:SubmitHandler<DocumentData> = async ({content, published}) => {
     await updateDoc(postRef, {
@@ -78,14 +81,21 @@ const PostForm:FC<{postRef:DocumentReference<DocumentData>, defaultValues:Post, 
         )
       }
       <div className={preview?styles.hidden:styles.controls}>
-        <textarea {...register("content")}></textarea>
+        <ImageUploader />
+        <textarea {...register("content", {
+            maxLength: {value: 20000, message: 'content is too long'},
+            minLength: {value: 10, message: 'content is too short'},
+            required: {value: true, message: 'content is required'}
+          })}></textarea>
+
+        {formState.errors.content && <p className='text-danger'>{formState.errors.content.message}</p>}
 
         <fieldset>
           <input className='checkbox' {...register("published")} type="checkbox"/>
           <label>Publish</label>
         </fieldset>
 
-        <button type="submit" className='btn-green'>
+        <button type="submit" className='btn-green' disabled={!isDirty||!isValid}>
           Save changes
         </button>
       </div>
